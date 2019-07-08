@@ -1,0 +1,9 @@
+#ignorar mp3
+tts.mp3
+
+#ignorar pruebas
+/pruebas
+
+#ignorar pycache
+/__pycache__
+
