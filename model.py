@@ -1,6 +1,10 @@
 import spacy
 import speech_recognition as sr
 from spacy.pipeline import EntityRuler
+import pymongo as pm
+
+client = pm.MongoClient('localhost', 27017)
+db = client.proyectoia
 
 nlp = spacy.load('es_core_news_sm')
 ruler = EntityRuler(nlp)
@@ -43,11 +47,38 @@ def posiblesTablas(text):
 
     return entidades
 
+def posiblesTablas2(text):
+    doc = nlp(text)
+    entidades = []
+    for ent in doc.ents:
+      entidades.append(ent.label)
+
+    return entidades
+
 def posiblesPronombres(text):
     doc = nlp(text)
     pronombres = []
     for token in doc:
-        if (token.pos_ =='PROP'):
+        if (token.pos_ == "PROPN"):
             pronombres.append((token.text, token.pos_))
         
-        return pronombres
+    return pronombres
+
+def posiblesSustantivos(text):
+    doc = nlp(text)
+    sustantivos = []
+    for token in doc:
+        if (token.pos_ == "NOUN"):
+            sustantivos.append((token.text, token.pos_))
+        
+    return sustantivos
+
+
+
+def coleccion(nombre):
+    alumnos = []
+    col = db[nombre]
+    cursor = col.find()
+    for alumno in cursor:
+        alumnos.append(alumno)
+    return alumnos

@@ -7,7 +7,9 @@ patterns = [{"label": "cual", "pattern": "cuál"},
             {"label": "cual", "pattern": [{"lower": "cuál"}, {"lower": "es"}]},
             {"label": "cual", "pattern": "Cuáles"},
             {"label": "cual", "pattern": [{"lower": "cuáles"}, {"lower": "son"}]},
-            {"label": "cual", "pattern": [{"lower": "digame"}, {"lower": "la"}]}]
+            {"label": "cual", "pattern": [{"lower": "digame"}, {"lower": "la"}]},
+            {"label": "cual", "pattern": "muéstreme"},
+            {"label": "cual", "pattern": "muéstrame"}]
 
 ruler.add_patterns(patterns)
 nlp.add_pipe(ruler)
