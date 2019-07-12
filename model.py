@@ -43,7 +43,7 @@ def posiblesTablas(text):
     doc = nlp(text)
     entidades = []
     for ent in doc.ents:
-      entidades.append((ent.text, ent.label_))
+      entidades.append( ent.label_)
 
     return entidades
 
@@ -60,7 +60,7 @@ def posiblesPronombres(text):
     pronombres = []
     for token in doc:
         if (token.pos_ == "PROPN"):
-            pronombres.append((token.text, token.pos_))
+            pronombres.append(token.text)
         
     return pronombres
 
@@ -69,16 +69,24 @@ def posiblesSustantivos(text):
     sustantivos = []
     for token in doc:
         if (token.pos_ == "NOUN"):
-            sustantivos.append((token.text, token.pos_))
+            sustantivos.append(token.text)
         
     return sustantivos
 
 
-
-def coleccion(nombre):
+def devuelveColeccion(nombre):
     alumnos = []
     col = db[nombre]
     cursor = col.find()
     for alumno in cursor:
         alumnos.append(alumno)
     return alumnos
+
+def posiblesVerbos(text):
+    doc = nlp(text)
+    sustantivos = []
+    for token in doc:
+        if (token.pos_ == "VERB"):
+            sustantivos.append(token.text)
+        
+    return sustantivos

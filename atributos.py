@@ -22,12 +22,14 @@ patterns = [{"label": "nota1", "pattern": "nota1"},
             {"label": "nota2", "pattern": [{"lower": "segundo"}, {"lower": "examen"}]},
             {"label": "nota3", "pattern": "nota3"},
             {"label": "nota3", "pattern": [{"lower": "nota"}, {"lower": "tres"}]},
-            {"label": "nota3", "pattern": [{"lower": "nota"}, {"lower": "2"}]},
+            {"label": "nota3", "pattern": [{"lower": "nota"}, {"lower": "3"}]},
             {"label": "nota3", "pattern": [{"lower": "parcial"}, {"lower": "tres"}]},
             {"label": "nota3", "pattern": [{"lower": "tercera"}, {"lower": "nota"}]},
             {"label": "nota3", "pattern": [{"lower": "tercer"}, {"lower": "corte"}]},
             {"label": "nota3", "pattern": [{"lower": "tercer"}, {"lower": "parcial"}]},
-            {"label": "nota3", "pattern": [{"lower": "tercer"}, {"lower": "examen"}]}]
+            {"label": "nota3", "pattern": [{"lower": "tercer"}, {"lower": "examen"}]},
+            {"label": "todo", "pattern": [{"lower": "todas"}, {"lower": "las"}, {"lower": "notas"}]},
+            {"label": "todo", "pattern": [{"lower": "las"}, {"lower": "notas"}]}]
 
 ruler.add_patterns(patterns)
 nlp.add_pipe(ruler)
@@ -36,6 +38,7 @@ def posiblesAtributos(text):
     doc = nlp(text)
     entidades = []
     for ent in doc.ents:
-      entidades.append((ent.text, ent.label_))
-
+      entidades.append(ent.label_)
+    if('todo' in entidades):
+      return ['nota1', 'nota2', 'nota3']
     return entidades
